@@ -1,0 +1,12 @@
+name:           TrieSuggest
+version:        0.1
+synopsis:       Toy program working with tries and suggestions
+author:         Pascal Hartig
+license:        BSD3
+build-type:     Simple
+cabal-version:  >= 1.2
+
+executable suggest
+  main-is:        Main.hs
+  build-depends:  base
+  hs-source-dirs: .
