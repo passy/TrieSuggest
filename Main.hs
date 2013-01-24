@@ -2,4 +2,6 @@ module Main (main) where
 
 import Trie (Trie)
 
-main = print "Hello"
+main = do
+    let x = Trie 5
+    print "Hello"
