@@ -3,6 +3,7 @@
 module Trie where
 
 import ListUtils (addToAL)
+import Control.Monad (liftM)
 
 data Trie a = Trie {
     value :: Maybe a,
@@ -19,11 +20,8 @@ emptyDictTrie = Trie Nothing []
 dictTrie :: String -> DictTrie
 dictTrie s = emptyDictTrie { value = Just (s, False) }
 
--- TODO: Use cool Monad magic. liftM perhaps?
 markLeaf :: Maybe (String, Bool) -> Maybe (String, Bool)
-markLeaf v = case v of
-    Just (a, _) -> Just (a, True)
-    Nothing     -> Nothing
+markLeaf = liftM (\(s, _) -> (s, True))
 
 insert :: DictTrie -> String -> DictTrie
 -- We exhausted the [Char] list
