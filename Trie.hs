@@ -38,6 +38,6 @@ insert t (x:xs) =
         -- Check if the current key already exists among the children
         in case lookup x childNodes of
             -- The key 'x' already exists in the current subtree.
-            Just t' -> t { children = addToAL childNodes x (insert t' xs)}
+            Just t' -> t { children = addToAL childNodes x $ insert t' xs}
             -- The key 'x' is unused among the subtree's children.
             Nothing -> t { children = childNodes ++ [(x, insert newNode xs)] }
