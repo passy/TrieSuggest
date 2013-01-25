@@ -1,7 +1,11 @@
 module Main (main) where
 
-import Trie (Trie)
+import Trie
 
+main :: IO ()
 main = do
-    let x = Trie 5
-    print "Hello"
+    let t = emptyDictTrie
+        t' = insert t "hello"
+        t'' = insert t' "hell"
+
+    print t''
