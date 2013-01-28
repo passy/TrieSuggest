@@ -41,3 +41,12 @@ insert t (x:xs) =
             Just t' -> t { children = addToAL childNodes x $ insert t' xs}
             -- The key 'x' is unused among the subtree's children.
             Nothing -> t { children = childNodes ++ [(x, insert newNode xs)] }
+
+
+-- | Find the prefix in the given trie and return the matching subtree, if it
+-- exists.
+findPrefix :: DictTrie -> String -> Maybe DictTrie
+findPrefix t []     = Just t
+findPrefix t (x:xs) = case lookup x $ children t of
+                        Just t' -> findPrefix t' xs
+                        Nothing -> Nothing

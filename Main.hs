@@ -7,5 +7,6 @@ main = do
     let t = emptyDictTrie
         t' = insert t "hello"
         t'' = insert t' "hell"
+        t''' = insert t'' "help"
 
-    print t''
+    print $ findPrefix t''' "hell"
