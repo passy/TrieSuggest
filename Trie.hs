@@ -10,8 +10,6 @@ module Trie(
 
 import ListUtils (addToAL)
 import Control.Monad (liftM)
-import Data.Maybe
-import Data.Monoid (mempty, mappend, mconcat)
 import qualified Data.Foldable as F
 
 data Trie a = Trie {
@@ -25,11 +23,11 @@ tfold :: F.Foldable f => (a -> b -> b) -> (t, f a) -> b -> b
 tfold f (_, a) b = F.foldr f b a
 
 instance F.Foldable Trie where
-    foldr f z (Trie (Just v) children) =
-        F.foldr (tfold f) (f v z) children
+    foldr f z (Trie (Just v) c) =
+        F.foldr (tfold f) (f v z) c
 
-    foldr f z (Trie Nothing children) =
-        F.foldr (tfold f) z children
+    foldr f z (Trie Nothing c) =
+        F.foldr (tfold f) z c
 
 type DictTrie = Trie (String, Bool)
 
