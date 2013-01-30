@@ -1,6 +1,7 @@
 module Main (main) where
 
 import Trie
+import qualified Data.Foldable as F
 
 main :: IO ()
 main = do

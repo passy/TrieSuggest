@@ -4,11 +4,21 @@ module Trie where
 
 import ListUtils (addToAL)
 import Control.Monad (liftM)
+import Data.Maybe
+import Data.Monoid (mempty, mappend, mconcat)
+import qualified Data.Foldable as F
 
 data Trie a = Trie {
     value :: Maybe a,
     children :: [(Char, Trie a)]
 } deriving (Show)
+
+instance F.Foldable Trie where
+    foldr f z (Trie (Just v) children) =
+        F.foldr (\a b -> F.foldr f b a) (f v z) children
+
+    foldr f z (Trie Nothing children) =
+        F.foldr (\a b -> F.foldr f b a) z children
 
 type DictTrie = Trie (String, Bool)
 
