@@ -10,4 +10,4 @@ main = do
         t'' = insert t' "hell"
         t''' = insert t'' "help"
 
-    print $ findPrefix t''' "hell"
+    print $ F.toList t'''

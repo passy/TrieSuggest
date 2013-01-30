@@ -1,6 +1,12 @@
 -- TODO: Use unicode Text thingy?
 
-module Trie where
+module Trie(
+    Trie,
+    insert,
+    emptyDictTrie,
+    dictTrie,
+    findPrefix
+) where
 
 import ListUtils (addToAL)
 import Control.Monad (liftM)
@@ -13,12 +19,17 @@ data Trie a = Trie {
     children :: [(Char, Trie a)]
 } deriving (Show)
 
+{- | Convenience function to partially apply foldr on a subtrie, ignoring the
+Char -}
+tfold :: F.Foldable f => (a -> b -> b) -> (t, f a) -> b -> b
+tfold f (_, a) b = F.foldr f b a
+
 instance F.Foldable Trie where
     foldr f z (Trie (Just v) children) =
-        F.foldr (\a b -> F.foldr f b a) (f v z) children
+        F.foldr (tfold f) (f v z) children
 
     foldr f z (Trie Nothing children) =
-        F.foldr (\a b -> F.foldr f b a) z children
+        F.foldr (tfold f) z children
 
 type DictTrie = Trie (String, Bool)
 
