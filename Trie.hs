@@ -2,6 +2,7 @@
 
 module Trie(
     Trie,
+    DictTrie,
     allWords,
     dictTrie,
     emptyDictTrie,
