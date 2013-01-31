@@ -4,13 +4,9 @@ import Trie
 
 main :: IO ()
 main = do
-    let t = emptyDictTrie
-        t' = insert t "hello"
-        t'' = insert t' "hell"
-        t''' = insert t'' "help"
-        t'''' = insert t''' "holodeck"
-        suggestions = suggest t'''' "hell"
+    let sWords = ["hello", "hell", "help", "holodeck"]
+        t = foldr (flip insert) emptyDictTrie sWords
 
-    case suggestions of
-        Just v -> print $ unwords v
+    case suggest t "hell" of
+        Just v -> putStrLn $ unlines v
         Nothing -> return ()
