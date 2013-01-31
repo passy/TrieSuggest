@@ -6,7 +6,8 @@ module Trie(
     dictTrie,
     emptyDictTrie,
     findPrefix,
-    insert
+    insert,
+    suggest
 ) where
 
 import ListUtils (addToAL)
@@ -74,3 +75,6 @@ findPrefix t (x:xs) = case lookup x $ children t of
 -- | Returns a list of all words stored in the dict trie.
 allWords :: DictTrie -> [String]
 allWords = map fst . filter snd . F.toList
+
+suggest :: DictTrie -> String -> Maybe [String]
+suggest t s = fmap allWords (findPrefix t s)

@@ -8,5 +8,9 @@ main = do
         t' = insert t "hello"
         t'' = insert t' "hell"
         t''' = insert t'' "help"
+        t'''' = insert t''' "holodeck"
+        suggestions = suggest t'''' "hell"
 
-    print $ allWords t'''
+    case suggestions of
+        Just v -> print $ unwords v
+        Nothing -> return ()
