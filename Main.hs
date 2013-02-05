@@ -24,4 +24,4 @@ main = do
     forever $ do
         putStr "suggest> "
         hFlush stdout
-        getLine >>= (putStr . findSuggest t)
+        getLine >>= putStr . findSuggest t
