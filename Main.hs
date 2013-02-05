@@ -19,11 +19,9 @@ findSuggest t s =
 main :: IO ()
 main = do
     sWords <- readFile "/usr/share/dict/words"
-
     let t = foldr (flip insert) emptyDictTrie $ lines sWords
 
     forever $ do
         putStr "suggest> "
         hFlush stdout
-        input <- getLine
-        putStr $ findSuggest t input
+        getLine >>= (putStr . findSuggest t)
