@@ -18,8 +18,9 @@ findSuggest t s =
 
 main :: IO ()
 main = do
-    let sWords = ["hello", "hell", "help", "holodeck"]
-        t = foldr (flip insert) emptyDictTrie sWords
+    sWords <- readFile "/usr/share/dict/words"
+
+    let t = foldr (flip insert) emptyDictTrie $ lines sWords
 
     forever $ do
         putStr "suggest> "
