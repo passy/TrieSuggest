@@ -1,22 +1,28 @@
 module Main (main) where
 
 import Trie
-import System.Environment
+import System.IO
+import Control.Monad (forever)
+import Data.Char (isSpace)
 
 
-doSuggest :: DictTrie -> String -> IO ()
-doSuggest t s = do
-    case suggest t s of
-        Just v -> putStrLn $ unlines v
-        Nothing -> return ()
+rstrip :: String -> String
+rstrip = reverse . dropWhile isSpace . reverse
+
+
+findSuggest :: DictTrie -> String -> String
+findSuggest t s =
+    case suggest t (rstrip s) of
+        Just v -> unlines v
+        Nothing -> "<not found>\n"
 
 main :: IO ()
 main = do
     let sWords = ["hello", "hell", "help", "holodeck"]
         t = foldr (flip insert) emptyDictTrie sWords
 
-    args <- getArgs
-
-    if length args < 1
-        then print "Please provide a suggestion prefix!"
-        else doSuggest t (args !! 0)
+    forever $ do
+        putStr "suggest> "
+        hFlush stdout
+        input <- getLine
+        putStr $ findSuggest t input
